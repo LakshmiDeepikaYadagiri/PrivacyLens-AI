@@ -1,0 +1,254 @@
+{
+  "evaluation_type": "synthetic_holdout",
+  "timestamp_utc": "2026-11-17T16:21:50.201994+00:00",
+  "samples": 30,
+  "passed_samples": 30,
+  "true_positives": 30,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1_score": 1.0,
+  "details": [
+    {
+      "sample": 1,
+      "text": "Email maria87@sample.net",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 2,
+      "text": "Reach support77@demo.org",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 3,
+      "text": "Write to contact19@example.net",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 4,
+      "text": "Email hr42@sample.org",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 5,
+      "text": "Send to billing8@demo.net",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 6,
+      "text": "Phone: 469-555-0142",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 7,
+      "text": "Call (702) 555-0163",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 8,
+      "text": "Mobile +1 512-555-0186",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 9,
+      "text": "Number 408 555 0132",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 10,
+      "text": "Telephone 917-555-0174",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 11,
+      "text": "Student ID: GH456789",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 12,
+      "text": "Employee ID: EMP34567",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 13,
+      "text": "Student ID: AB765432",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 14,
+      "text": "Employee ID: WRK98765",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 15,
+      "text": "Student ID: STU45678",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 16,
+      "text": "Send to 5824 Willow Street, Denver, CO",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 17,
+      "text": "Address: 1742 Oak Avenue, Phoenix, AZ",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 18,
+      "text": "Ship to 3658 Maple Drive, Orlando, FL",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 19,
+      "text": "Visit 7291 Birch Road, Houston, TX",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 20,
+      "text": "Deliver to 4826 Pine Lane, Seattle, WA",
+      "passed": true,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 21,
+      "text": "The application completed successfully.",
+      "passed": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 22,
+      "text": "No sensitive information is included.",
+      "passed": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 23,
+      "text": "The database query returned five rows.",
+      "passed": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 24,
+      "text": "The dashboard is working correctly.",
+      "passed": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 25,
+      "text": "The report was generated successfully.",
+      "passed": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 26,
+      "text": "Email sara88@demo.org and call 214-555-0183",
+      "passed": true,
+      "tp": 2,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 27,
+      "text": "Student ID: XY654321, email user55@sample.net",
+      "passed": true,
+      "tp": 2,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 28,
+      "text": "Call 646-555-0137 or 305-555-0192",
+      "passed": true,
+      "tp": 2,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 29,
+      "text": "Send to 2461 Elm Street, Dallas, TX. Email info72@demo.org",
+      "passed": true,
+      "tp": 2,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "sample": 30,
+      "text": "Employee ID: EMP24680, phone (832) 555-0149",
+      "passed": true,
+      "tp": 2,
+      "fp": 0,
+      "fn": 0
+    }
+  ]
+}

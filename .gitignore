@@ -1,0 +1,47 @@
+﻿# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Frontend dependencies and builds
+node_modules/
+dist/
+build/
+.vite/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# IDE settings
+.vscode/
+.idea/
+
+# Temporary files and backups
+*.bak
+*.tmp
+*.log
+
+# Uploaded and generated documents
+uploads/
+exports/
+temp/
+
+# Local test files
+test_25000.txt
+
+# Operating system files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,14 @@
+{
+  "evaluation": "independent_synthetic",
+  "timestamp": "2026-11-17T10:11:27.293305",
+  "samples": 50,
+  "passed_samples": 50,
+  "failed_samples": 0,
+  "true_positives": 50,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1_score": 1.0,
+  "errors": []
+}
