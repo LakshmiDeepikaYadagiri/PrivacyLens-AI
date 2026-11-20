@@ -1,12 +1,21 @@
-from fastapi import Request
-from starlette.responses import Response
-from fastapi.responses import StreamingResponse
+
+import os
 from io import BytesIO
 
-from backend.document_exporter import create_export
-from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi import (
+    FastAPI,
+    HTTPException,
+    UploadFile,
+    File,
+    Request,
+)
+
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
+from starlette.responses import Response
 from pydantic import BaseModel
+
+from backend.document_exporter import create_export
 
 from backend.chunk_processor import (
     analyze_large_text,
@@ -24,7 +33,10 @@ from backend.file_processor import (
 )
 
 
+# ==========================================
 # Create FastAPI application
+# ==========================================
+
 app = FastAPI(
     title="PrivacyLens AI",
     description="AI-powered sensitive data detection and redaction",
@@ -32,18 +44,34 @@ app = FastAPI(
 )
 
 
-# Enable CORS for React frontend
+# ==========================================
+# CORS configuration for local and cloud
+# ==========================================
+
+allowed_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+frontend_url = os.getenv(
+    "FRONTEND_URL", ""
+).strip().rstrip("/")
+
+if frontend_url:
+    allowed_origins.append(frontend_url)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type"],
 )
+
+
+# ==========================================
+# Security middleware
+# ==========================================
 
 @app.middleware("http")
 async def prevent_sensitive_response_caching(
@@ -66,13 +94,23 @@ async def prevent_sensitive_response_caching(
     return response
 
 
+# ==========================================
+# Request models
+# ==========================================
 
-# Request model
 class TextRequest(BaseModel):
     text: str
 
 
-# Validate input text
+class ExportRequest(BaseModel):
+    text: str
+    file_format: str
+
+
+# ==========================================
+# Input validation
+# ==========================================
+
 def check_input(text):
     try:
         validate_text(text)
@@ -84,7 +122,10 @@ def check_input(text):
         )
 
 
+# ==========================================
 # Home endpoint
+# ==========================================
+
 @app.get("/")
 def home():
     return {
@@ -102,11 +143,18 @@ def home():
     }
 
 
+# ==========================================
 # Upload TXT, PDF, or DOCX documents
+# ==========================================
+
 @app.post("/upload")
-async def upload_document(file: UploadFile = File(...)):
+async def upload_document(
+    file: UploadFile = File(...)
+):
     try:
-        content = await file.read(MAX_FILE_BYTES + 1)
+        content = await file.read(
+            MAX_FILE_BYTES + 1
+        )
 
         if len(content) > MAX_FILE_BYTES:
             raise HTTPException(
@@ -131,9 +179,14 @@ async def upload_document(file: UploadFile = File(...)):
         await file.close()
 
 
+# ==========================================
 # Detect sensitive information
+# ==========================================
+
 @app.post("/detect")
-def detect_sensitive_data(request: TextRequest):
+def detect_sensitive_data(
+    request: TextRequest
+):
     check_input(request.text)
 
     results, total_chunks = analyze_large_text(
@@ -148,7 +201,9 @@ def detect_sensitive_data(request: TextRequest):
             "text": request.text[
                 result.start:result.end
             ],
-            "confidence": round(result.score, 2),
+            "confidence": round(
+                result.score, 2
+            ),
         })
 
     return {
@@ -158,9 +213,14 @@ def detect_sensitive_data(request: TextRequest):
     }
 
 
+# ==========================================
 # Redact sensitive information
+# ==========================================
+
 @app.post("/redact")
-def redact_sensitive_data(request: TextRequest):
+def redact_sensitive_data(
+    request: TextRequest
+):
     check_input(request.text)
 
     result = redact_text(request.text)
@@ -168,34 +228,46 @@ def redact_sensitive_data(request: TextRequest):
     return result
 
 
+# ==========================================
 # Calculate privacy risk score
+# ==========================================
+
 @app.post("/risk-score")
-def get_risk_score(request: TextRequest):
+def get_risk_score(
+    request: TextRequest
+):
     check_input(request.text)
 
     result = calculate_risk(request.text)
 
     return result
 
-class ExportRequest(BaseModel):
-    text: str
-    file_format: str
 
+# ==========================================
+# Export redacted documents
+# ==========================================
 
 @app.post("/export")
-def export_redacted_document(request: ExportRequest):
+def export_redacted_document(
+    request: ExportRequest
+):
     check_input(request.text)
 
     file_format = request.file_format.lower()
 
-    if file_format not in {"txt", "pdf", "docx"}:
+    if file_format not in {
+        "txt",
+        "pdf",
+        "docx",
+    }:
         raise HTTPException(
             status_code=400,
-            detail="Unsupported export format."
+            detail="Unsupported export format.",
         )
 
     # Re-run redaction on the server.
-    # Never trust a browser-provided redacted string.
+    # Never trust browser-provided redacted text.
+
     result = redact_text(request.text)
 
     protected_text = result["redacted_text"]
@@ -203,16 +275,18 @@ def export_redacted_document(request: ExportRequest):
     try:
         content, media_type = create_export(
             protected_text,
-            file_format
+            file_format,
         )
 
     except Exception:
         raise HTTPException(
             status_code=500,
-            detail="Unable to generate the document."
+            detail="Unable to generate the document.",
         )
 
-    filename = f"PrivacyLens_Redacted.{file_format}"
+    filename = (
+        f"PrivacyLens_Redacted.{file_format}"
+    )
 
     return StreamingResponse(
         BytesIO(content),
